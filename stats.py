@@ -2,28 +2,25 @@ import sys
 
 def get_book_text(path_to_file):
 
-    #with open("/home/stephen/workspace/github.com/SteveGit16/bookbot/books/frankenstein.txt") as f:
-
-
+    with open(path_to_file, "r") as f:
     
-    with open(sys.argv[1], "r") as f:
-        file_contents = f.read()
-        
+        file_contents = f.read()  
         words = file_contents.split()
-
         num_words = -1
-
         for word in words:
             num_words += 1
             
-        return num_words
-
-
-def char_count(path_to_file):
-
-    #with open("/home/stephen/workspace/github.com/SteveGit16/bookbot/books/frankenstein.txt") as f:
-    with open(sys.argv[1], "r") as f:
         
+    return file_contents
+
+
+def count_words(text):
+    words = text.split()
+    return len(words)
+
+
+def char_count(path_to_file):   
+    with open(path_to_file, "r")as f:   
         file_contents = f.read()             
         char_dict = {}                
                                                        
@@ -36,19 +33,16 @@ def char_count(path_to_file):
                     char_dict[lower_char] = 1
 
                 else:
-                    char_dict[lower_char] += 1
-                   
-              
+                    char_dict[lower_char] += 1               
         return char_dict
 
-
-def sort(char_dict):
-
-    items = list(char_dict.items())
-
-    for char, count in sorted(char_dict.items(), key=lambda x: x[1], reverse=True):
-        print(f"{char}: {count}")
-
+def sort_characters(char_dict):
     
-    return items
+    char_list = []
+
+    for char, count in char_dict.items():
+        char_list.append({"char": char, "num": count})
+
+        char_list.sort(key=lambda x: x["num"], reverse=True)
+    return char_list
 

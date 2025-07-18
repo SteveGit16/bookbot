@@ -1,26 +1,32 @@
 import sys
-from stats import get_book_text, char_count, sort 
+from stats import get_book_text, char_count, count_words, sort_characters 
 
 def main():
-
     if len(sys.argv) < 2:
         print(f"Usage: python3 main.py <path_to_book>")
-        sys.exit(1)
+        sys.exit(1)                  
+                        
+    book_path = sys.argv[1]
 
-    path = "./books/frankenstein.txt"        #Remove hard coded book path here?  This creates an issue with following code
-    get_book_text(path)                      #------couldn't find path error ---- if I remove the 'path =' line
-    char_count(path)                         #------couldn't find path error ---- if I remove the 'path =' line
+    text = get_book_text(book_path)       
+    word_count = count_words(text)
+    character_counts = char_count(book_path)
+    sorted_chars = sort_characters(character_counts)         #New variable name sorted_chars is using sort_characters function.
 
-    book_path = sys.argv[1]               #created variable to store the path as first argument in the sys.argv
-    text = get_book_text(book_path)       #created variable to store path
+    #Print Report now:
 
-    character_counts = char_count(path)
-    sort(character_counts)
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}...")
+    print("----------- Word Count ----------")
+    print(f"Found {word_count} total words")
+    print("--------- Character Count -------")
 
-    num_words = get_book_text(path)             
 
-    print(f"Found {num_words} total words")
+    for char_dict in sorted_chars:
+        char = char_dict["char"]
+        count = char_dict["num"]
+        print(f"{char}: {count}")
 
-    
+    print("============= END ===============")
 
 main()
